@@ -12,6 +12,12 @@ return {
                 default_value = 20,
                 range = {0, 100},
             },
+            {
+                setting_id = "boss_chance",
+                type = "numeric",
+                default_value = 20,
+                range = {0, 100},
+            },
 			{
                 setting_id = "force_lms_change",
 				type = "checkbox",

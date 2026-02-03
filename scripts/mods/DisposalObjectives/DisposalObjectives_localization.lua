@@ -3,13 +3,16 @@ return {
 		["en"] = "Disposal Objectives",
 	},
 	mod_description = {
-		["en"] = "Play Disposal Unit on objectives",
+		["en"] = "Play Disposal Unit (Imperium Mix) on clutch/objectives/bosses",
 	},
 	disposal_unit_chance = {
-		["en"] = "Chance to play Disposal Unit on objective",
+		["en"] = "Percent chance to play on objective",
+	},
+	boss_chance = {
+		["en"] = "Percent chance to play on boss",
 	},
 	force_lms_change = {
-		["en"] = "Disposal Unit on Last Man Standing",
+		["en"] = "Play on Last Man Standing (clutch)",
 	},
 	show_log = {
 		["en"] = "Objectives log in chat",
