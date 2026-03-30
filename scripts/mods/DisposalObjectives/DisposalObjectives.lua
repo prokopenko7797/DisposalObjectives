@@ -2,6 +2,8 @@ local mod = get_mod("DisposalObjectives")
 
 local MUSIC_OBJECTIVE = "music_objective"
 local MUSIC_COMBAT = "music_combat"
+local MUSIC_GAME_STATE = "music_game_state"
+local LOADING = "loading"
 local DEFAULT_GROUP_STATE = "None"
 local DISPOSAL_UNIT_MUSIC = "kill_event"
 local BOSS = "boss"
@@ -9,11 +11,20 @@ local BOSS = "boss"
 local is_boss_music_replaced = false
 local is_objective_active = false
 
+local function end_boss_music(func, show_log)
+    if show_log then
+        mod:echo("Boss end")
+    end
+
+    is_boss_music_replaced = false
+    func(MUSIC_OBJECTIVE, DEFAULT_GROUP_STATE)
+end
+
 math.randomseed(os.time())
 
 mod:hook("Wwise", "set_state", function(func, state_group, state_value)
     local show_log = mod:get("show_log")
-    
+
     if state_group == MUSIC_OBJECTIVE then
         if state_value ~= DEFAULT_GROUP_STATE then
             is_objective_active = true
@@ -59,14 +70,10 @@ mod:hook("Wwise", "set_state", function(func, state_group, state_value)
                 state_value = DISPOSAL_UNIT_MUSIC
             end
         elseif is_boss_music_replaced then
-            
-            if show_log then
-                mod:echo("Boss end")
-            end
-
-            is_boss_music_replaced = false
-            func(MUSIC_OBJECTIVE, DEFAULT_GROUP_STATE)
+            end_boss_music(func, show_log)
         end
+    elseif is_boss_music_replaced and state_group == MUSIC_GAME_STATE and state_value == LOADING then
+        end_boss_music(func, show_log)
     end
 
     func(state_group, state_value)
